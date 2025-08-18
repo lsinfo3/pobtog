@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Population Viewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Add Plotly.js for rendering plots -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Geo Population Viewer</h1>
+        <form id="data-form">
+            <label for="country">Select Country:</label>
+            <select id="country" name="country" required></select>
+
+            <label for="capacity">Capacity:</label>
+            <input type="number" id="capacity" name="capacity" value="100000" required>
+
+            <label for="population-threshold">Population Threshold:</label>
+            <input type="number" id="population-threshold" name="population-threshold" value="5000" required>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="output">
+            <h2>Terminal Output:</h2>
+            <pre id="terminal-output"></pre>
+        </div>
+
+        <div class="plot-container">
+            <h2>Generated Plot:</h2>
+            <div id="plot-container"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

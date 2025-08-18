@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "geopop"
+version = "0.1.0"
+description = "Geospatial analysis toolkit for raster processing and hierarchical analysis"
+authors = [
+    {name = "Geo", email = "example@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+packages = ["src"]
+package-dir = {"geopop" = "src"}
+py-modules = ["geopop"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "jupyter>=1.0.0",
+    "black>=23.0.0",
+    "isort>=5.10.0",
+]
+
+[tool.setuptools.package-data]
+"src" = ["*.json", "*.gpkg"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
