@@ -262,13 +262,22 @@ def run_calculation_pipeline(config):
     
     save_to_json = config.get("save_to_json")
     if save_to_json:
+        #json_nodes = [
+        #{
+        #    "name": node.name,
+        #    "type": node.type,
+        #    "location": [node.location.x, node.location.y]
+        #}
+        #for node in gdf["switch"]
+        #]
         json_nodes = [
         {
-            "name": node.name,
-            "type": node.type,
-            "location": [node.location.x, node.location.y]
+            "name": row.switch.name,
+            "type": row.switch.type,
+            "location": [row.switch.location.x, row.switch.location.y],
+            "level": row.level,     # <-- kommt aus gdf["level"]
         }
-        for node in gdf["switch"]
+        for row in gdf.itertuples(index=False)
         ]
         json_links = []
     

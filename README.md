@@ -1,14 +1,8 @@
 # GeoPopulation Analysis Toolkit
 
 ## Installation
-```bash
-git clone https://gitlab.infosim.net/research/interns/paul-weis.git
-cd paul-weis
+git lfs pull
 pip install -e . 
-# edit .dvc/config file and add username if no ssh.config file exists 
-dvc pull 
-```
-
 
 ## Overview
 This toolkit provides advanced algorithms and utilities for processing, analyzing, and visualizing geographic population data. It specializes in creating population-weighted clusters from high-resolution raster datasets using various spatial partitioning techniques.
@@ -16,8 +10,9 @@ This toolkit provides advanced algorithms and utilities for processing, analyzin
 ## Key Components
 
 ### Data Sources 
-There are two main data sources for this project:
+There are two external main data sources for this project:
 - One large GeoTiff file (10.37GB) that is a raster dataset of the entire inhabited world in 3 arc seconds resolution (one pixel is represents roughly 100m x 100m) where each pixels value is an estimate for the population living in that pixel.
+- Available via: https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_POP_GLOBE_R2023A/GHS_POP_E2025_GLOBE_R2023A_4326_3ss/V1-0/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.zip
 Can be loaded with rasterio:
 ```python
 with rasterio.open('data/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif') as src:
@@ -28,8 +23,9 @@ The transform object is responsible for mapping the indices of the raster grid b
 
 
 
-- A .gpkg file that contains administrative boundaries for most countries (263) in the world. The following layers are available: 'ADM_0', ADM_1', 'ADM_2', 'ADM_3', 'ADM_4', 'ADM_5'. Currently only the countries borders  ('ADM_0') are used. Can be loaded with geopandas:
-
+- A .gpkg file that contains administrative boundaries for most countries (263) in the world. The following layers are available: 'ADM_0', ADM_1', 'ADM_2', 'ADM_3', 'ADM_4', 'ADM_5'. Currently only the countries borders  ('ADM_0') are used. 
+-Available via: https://geodata.ucdavis.edu/gadm/gadm4.1/gadm_410-levels.zip
+Can be loaded with geopandas:
 ```python 
 gdf = gpd.read_file('data/gadm_410-levels.gpkg', layer='ADM_0')
 ```
@@ -134,3 +130,7 @@ A web-based population viewer is available in the `geo-population-viewer` direct
 
 ## Performance Considerations
 For large datasets, consider using the multiprocessing options and adjusting parameters like `block_size_factor` and `capacity` to optimize performance and memory usage.
+
+## POBTOG
+The POBTOG Demo can be found in examples/GUI.ipynb
+Depending on the country size and topology settings it is adviced to run the demo on a machine with more than 100GB RAM and multiple cores.
